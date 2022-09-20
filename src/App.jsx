@@ -1,32 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
+import { useState, useEffect} from 'react'
+import {Link, Outlet, useNavigate, useLocation} from "react-router-dom"
+import {BiSearchAlt2} from "react-icons/bi"
+import Container from "./components/Container"
+
+import Logo from "./img/logo.png"
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if(!search) return;
+
+    navigate(`/search?q=${search}`, { replace: true });
+  };
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header className={(location.pathname.startsWith('/games/') ? "game-page": "")}>
+        <Container>
+          <nav className='flex-row flex-jsb flex-ac'>
+            <Link to="/">
+              <img className='logo' src={Logo} alt="Logo" />
+            </Link>
+            <form onSubmit={handleSubmit}>
+              <div className='flex-row'>
+                <input type="text" placeholder='Search Games' onChange={(e) => setSearch(e.target.value)}/>
+                <button type='submit'>
+                  Search
+                </button>
+              </div>
+            </form>
+          </nav>
+        </Container>
+      </header>
+      <Outlet/>
     </div>
   )
 }

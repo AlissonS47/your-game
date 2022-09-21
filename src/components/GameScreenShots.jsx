@@ -21,12 +21,16 @@ const GameScreenShots = ({gamePk}) => {
 
   return (
     <div className="game-screenshots">
-      <h2 className="text-center mt-3 mb-2">Screenshots</h2>
-      <div className="flex-row flex-wrap flex-jc flex-g1">
-        {gameScreenShots && gameScreenShots.map((screenShot) => 
-          <img key={screenShot.id} src={screenShot.image} alt="Game Screenshots" />)
-        }
-      </div>
+      {gameScreenShots &&
+        <>
+        <h2 className="text-center mt-3 mb-2">Screenshots</h2>
+        <div className="flex-row flex-wrap flex-jc flex-g1">
+          {gameScreenShots.map((screenShot) => 
+            <img key={screenShot.id} src={screenShot.image} alt="Game Screenshots" />)
+          }
+        </div>
+        </>
+      }
     </div>
   )
 }

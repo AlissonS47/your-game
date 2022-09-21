@@ -23,10 +23,14 @@ const GameSeries = ({gamePk}) => {
 
   return (
     <div className="game-series mt-3">
-      <h2 className="text-center mb-2">Other games in this franchise</h2>
-      <div className="flex-row flex-wrap flex-jc flex-g1">
-        {gameSeries && gameSeries.map((game) => <GameCard game={game} key={game.id}/>)}
-      </div>
+      {gameSeries &&
+        <>
+        <h2 className="text-center mb-2">Other games in this franchise</h2>
+        <div className="flex-row flex-wrap flex-jc flex-g1">
+          {gameSeries.map((game) => <GameCard game={game} key={game.id}/>)}
+        </div>
+        </>
+      }
     </div>
   )
 }

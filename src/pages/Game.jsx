@@ -6,6 +6,7 @@ import Container from "../components/Container"
 import GameScreenShots from "../components/GameScreenShots"
 import MetaCritic from "../components/MetaCritic"
 import GameSeries from "../components/GameSeries"
+import PreLoader from "../components/PreLoader"
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const gamesURL = import.meta.env.VITE_API_GAMES;
@@ -13,75 +14,107 @@ const gamesURL = import.meta.env.VITE_API_GAMES;
 const Game = () => {
   const { pk } = useParams();
   const [gameDetail, setGameDetail] = useState();
+  const [preloader, setPreloader] = useState(true);
 
   const getGameDetail = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
     setGameDetail(data);
+    setPreloader(false);
   }
 
   useEffect(() => {
+    setPreloader(true);
     const getGameDetailURL = `${gamesURL}/${pk}?${apiKey}`;
     getGameDetail(getGameDetailURL);
-  }, []);
+  }, [pk]);
 
   return (
     <div id="game-page">
-      <div className="game-page__image-container">
-        <img src={gameDetail && gameDetail.background_image} alt="Game image" />
-      </div>
-      <Container>
-        <div className="game-page__content">
-          <div className="game-page__info flex-row flex-g2">
-            <div className="game-page__info-about">
-              <h2>{gameDetail && gameDetail.name}</h2>
-              {gameDetail && 
-                <div dangerouslySetInnerHTML={{__html: gameDetail.description}}></div>
-              }
-            </div>
-            <div className="game-page__info-detail">
-              <div>
-                <h3>Platforms</h3>
-                <p>{gameDetail && gameDetail.platforms.map((platformU) => `${platformU.platform.name}, `)}</p>
-              </div>
-              <div>
-                <h3>Metascore</h3>
-                <MetaCritic gameScore={gameDetail && gameDetail.metacritic}/>
-              </div>
-              <div>
-                <h3>Genre</h3>
-                <p>{gameDetail && gameDetail.genres.map((genre) => `${genre.name}, `)}</p>
-              </div>
-              <div>
-                <h3>Release Date</h3>
-                <p>{gameDetail && gameDetail.released}</p>
-              </div>
-              <div>
-                <h3>Developer</h3>
-                <p>{gameDetail && gameDetail.developers.map((developer) => `${developer.name}, `)}</p>
-              </div>
-              <div>
-                <h3>Publisher</h3>
-                <p>{gameDetail && gameDetail.publishers.map((publisher) => publisher.name)}</p>
-              </div>
-              <div>
-                <h3>Playtime</h3>
-                <p>{gameDetail && gameDetail.playtime} Hours</p>
-              </div>
-              <div>
-                <h3>Age Rating</h3>
-                <p>{gameDetail && gameDetail.esrb_rating.name}</p>
-              </div>
-            </div>
-          </div>
-          <div className="game-page__screenshots">
-            {gameDetail && <GameScreenShots gamePk={gameDetail.slug}/>}
-          </div>
-          <div>
-            {gameDetail && <GameSeries gamePk={gameDetail.slug}/>}
-          </div>
+      {preloader && <PreLoader/>}
+      {!preloader && 
+      <>
+        <div className="game-page__image-container">
+          <img src={gameDetail.background_image} alt="Game image" />
         </div>
-      </Container>
+        <Container>
+          <div className="game-page__content">
+            <div className="game-page__info flex-col-row flex-g2">
+              <div className="game-page__info-about">
+                <h2>{gameDetail.name}</h2>
+                <div dangerouslySetInnerHTML={{__html: gameDetail.description}}></div>
+              </div>
+              <div className="game-page__info-detail">
+                <div>
+                  <h3>Platforms</h3>
+                  <p>
+                    {gameDetail.platforms ?
+                      gameDetail.platforms.map((platformU) => `${platformU.platform.name}, `)
+                      : "Not informed"}
+                  </p>
+                </div>
+                <div>
+                  <h3>Metascore</h3>
+                    {gameDetail.metacritic ? 
+                      <MetaCritic gameScore={gameDetail.metacritic}/>
+                      : "Not informed"}
+                </div>
+                <div>
+                  <h3>Genre</h3>
+                  <p>
+                    {gameDetail.genres ?
+                      gameDetail.genres.map((genre) => `${genre.name}, `)
+                      : "Not informed"}
+                  </p>
+                </div>
+                <div>
+                  <h3>Release Date</h3>
+                  <p>
+                    {gameDetail.released ?
+                      gameDetail.released
+                      : "Not informed"}
+                  </p>
+                </div>
+                <div>
+                  <h3>Developer</h3>
+                  <p>
+                    {gameDetail.developers ?
+                      gameDetail.developers.map((developer) => `${developer.name}, `)
+                      : "Not informed"}
+                  </p>
+                </div>
+                <div>
+                  <h3>Publisher</h3>
+                  <p>
+                    {gameDetail.publishers ?
+                      gameDetail.publishers.map((publisher) => publisher.name)
+                      : "Not informed"}
+                  </p>
+                </div>
+                <div>
+                  <h3>Playtime</h3>
+                  <p>
+                    {gameDetail.playtime ?
+                      gameDetail.playtime
+                      : "Not informed"} Hours
+                  </p>
+                </div>
+                <div>
+                  <h3>Age Rating</h3>
+                  <p>
+                    {gameDetail.esrb_rating ?
+                      gameDetail.esrb_rating.name
+                      : "Not informed"}
+                    </p>
+                </div>
+              </div>
+            </div>
+            <GameScreenShots gamePk={gameDetail.slug}/>
+            <GameSeries gamePk={gameDetail.slug}/>
+          </div>
+        </Container>
+      </>
+      }
     </div>
   )
 }

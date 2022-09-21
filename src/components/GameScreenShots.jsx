@@ -17,12 +17,12 @@ const GameScreenShots = ({gamePk}) => {
   useEffect(() => {
     const getGameDetailURL = `${gamesURL}/${gamePk}/screenshots?${apiKey}`;
     getGameScreenShots(getGameDetailURL);
-  }, []);
+  }, [gamePk]);
 
   return (
-    <div>
-      <h2>Screenshots</h2>
-      <div className="game-screenshots flex-row flex-wrap flex-jc flex-g1">
+    <div className="game-screenshots">
+      <h2 className="text-center mt-3 mb-2">Screenshots</h2>
+      <div className="flex-row flex-wrap flex-jc flex-g1">
         {gameScreenShots && gameScreenShots.map((screenShot) => 
           <img key={screenShot.id} src={screenShot.image} alt="Game Screenshots" />)
         }

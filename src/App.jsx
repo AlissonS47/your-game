@@ -17,6 +17,7 @@ function App() {
     if(!search) return;
 
     navigate(`/search?q=${search}`, { replace: true });
+    setSearch("");
   };
 
   return (
@@ -29,7 +30,7 @@ function App() {
             </Link>
             <form onSubmit={handleSubmit}>
               <div className='flex-row'>
-                <input type="text" placeholder='Search Games' onChange={(e) => setSearch(e.target.value)}/>
+                <input type="text" placeholder='Search Games' onChange={(e) => setSearch(e.target.value)} value={(search ? search : "")}/>
                 <button type='submit'>
                   Search
                 </button>

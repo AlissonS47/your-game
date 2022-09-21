@@ -12,7 +12,7 @@
     padding: 1.5rem;
     background-color: rgb(22, 21, 29);
     box-shadow: 0 0 1rem #000;
-    transform: translateY(-50vh);
+    transform: translateY(-35vh);
 }
 
 .game-page__content h2 {
@@ -20,11 +20,22 @@
 }
 
 .game-page__info {
+    flex-basis: 80%;
     margin-bottom: 1rem;
+}
+
+.game-page__info-about ul {
+    list-style-position: inside;
 }
 
 .game-page__info-detail {
     display: grid;
-    grid-template-columns: 15rem 15rem;
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.5rem;
+}
+
+@media (min-width: 48em) {
+    .game-page__info > * {
+        flex-basis: 100%;
+    }
 }

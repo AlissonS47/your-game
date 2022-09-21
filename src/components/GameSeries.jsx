@@ -13,18 +13,17 @@ const GameSeries = ({gamePk}) => {
   const getGameSeries = async (url) => {
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.results);
     setGameSeries(data.results);
   };
 
   useEffect(() => {
     const gameSeriesURL = `${gamesURL}/${gamePk}/game-series?${apiKey}`;
     getGameSeries(gameSeriesURL);
-  }, []);
+  }, [gamePk]);
 
   return (
-    <div className="game-series">
-      <h2 className="text-center">Other games of this series</h2>
+    <div className="game-series mt-3">
+      <h2 className="text-center mb-2">Other games in this franchise</h2>
       <div className="flex-row flex-wrap flex-jc flex-g1">
         {gameSeries && gameSeries.map((game) => <GameCard game={game} key={game.id}/>)}
       </div>

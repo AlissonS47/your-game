@@ -1,18 +1,13 @@
-.game-page__image-container {
-    height: 100vh;
-}
-
-.game-page__image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+#game-page {
+    position: absolute;
+    top: 60vh;
+    padding-bottom: 1rem;
 }
 
 .game-page__content {
     padding: 1.5rem;
     background-color: rgb(22, 21, 29);
     box-shadow: 0 0 1rem #000;
-    transform: translateY(-35vh);
 }
 
 .game-page__content h2 {
@@ -35,7 +30,7 @@
 }
 
 @media (min-width: 48em) {
-    .game-page__info > * {
+    .game-page__info>* {
         flex-basis: 100%;
     }
 }

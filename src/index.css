@@ -5,6 +5,11 @@
   font-family: 'Roboto', sans-serif;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: #151515;
   color: #fff;

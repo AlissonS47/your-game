@@ -1,41 +1,37 @@
-import "./Home.css"
-
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 import Header from "../components/Header";
 import Container from "../components/Container";
 import GameCard from "../components/GameCard";
 import PreLoader from "../components/PreLoader";
-
-const apiKey = import.meta.env.VITE_API_KEY;
-const gamesURL = import.meta.env.VITE_API_GAMES;
+import LoadMore from "../components/LoadMore";
+import { useFetchGames } from "../hooks/useFetchGames";
 
 const Home = () => {
-  const [games, setGames] = useState();
-  const [preloader, setPreloader] = useState(true);
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(false);
+  const { data: games } = useFetchGames(page);
 
-  const getGames = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-    setGames(data.results);
-    setPreloader(false);
-  };
-
-  useEffect(() => {
-    setPreloader(true);
-    const getGamesURL = `${gamesURL}?${apiKey}`;
-    getGames(getGamesURL);
-  }, []);
+  const nextPage = () => {
+    if (!games.next) {
+      setLastPage(true);
+      return;
+    }
+    setPage(prevPage => prevPage + 1);
+  }
 
   return (
     <>
       <Header />
       <Container>
-        {preloader && <PreLoader />}
-        {!preloader &&
-          <div className="flex-row flex-wrap flex-jc flex-g1">
-            {games && games.map((game) => <GameCard game={game} key={game.id} />)}
-          </div>
+        {!games && <PreLoader />}
+        {games &&
+          <>
+            <div className="flex-row flex-wrap flex-jc flex-g1">
+              {games.results && games.results.map((game) => <GameCard game={game} key={game.id} />)}
+            </div>
+            <LoadMore callback={nextPage} lastPage={lastPage} />
+          </>
         }
       </Container>
     </>

@@ -1,0 +1,20 @@
+.gallery-image {
+  position: relative;
+  cursor: pointer;
+}
+
+.gallery-image:hover>.gallery-image__overlay {
+  visibility: visible;
+}
+
+.gallery-image__overlay {
+  visibility: hidden;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.gallery-image__overlay svg {
+  width: 5rem;
+}

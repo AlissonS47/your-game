@@ -1,40 +1,25 @@
 import "./Game.css"
 
-import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import Header from "../components/Header"
 import Container from "../components/Container"
-import GameScreenShots from "../components/GameScreenShots"
 import MetaCritic from "../components/MetaCritic"
-import GameSeries from "../components/GameSeries"
 import PreLoader from "../components/PreLoader"
-
-const apiKey = import.meta.env.VITE_API_KEY;
-const gamesURL = import.meta.env.VITE_API_GAMES;
+import GameCard from "../components/GameCard"
+import Gallery from "../components/Gallery"
+import { useFetchGame } from "../hooks/useFetchGame"
 
 const Game = () => {
   const { pk } = useParams();
-  const [gameDetail, setGameDetail] = useState();
-  const [preloader, setPreloader] = useState(true);
-
-  const getGameDetail = async (url) => {
-    const res = await fetch(url);
-    const data = await res.json();
-    setGameDetail(data);
-    setPreloader(false);
-  }
-
-  useEffect(() => {
-    setPreloader(true);
-    const getGameDetailURL = `${gamesURL}/${pk}?${apiKey}`;
-    getGameDetail(getGameDetailURL);
-  }, [pk]);
+  const { data: gameDetail } = useFetchGame(pk);
+  const { data: gameScreenshots } = useFetchGame(pk, 'screenshots');
+  const { data: gameSeries } = useFetchGame(pk, 'game-series');
 
   return (
     <>
-      {preloader && <PreLoader />}
-      {!preloader &&
+      {!gameDetail && <PreLoader />}
+      {gameDetail &&
         <>
           <Header bgImage={gameDetail.background_image} />
           <div id="game-page">
@@ -110,8 +95,20 @@ const Game = () => {
                     </div>
                   </div>
                 </div>
-                <GameScreenShots gamePk={gameDetail.slug} />
-                <GameSeries gamePk={gameDetail.slug} />
+                <section id="game-page__screenshots">
+                  <h2 className="text-center mt-3 mb-2">Screenshots</h2>
+                  {!gameScreenshots && <PreLoader />}
+                  {gameScreenshots && <Gallery images={gameScreenshots.results} />}
+                </section>
+                <section id="game-page__game-series">
+                  <h2 className="text-center mt-3 mb-2">Game Series</h2>
+                  {!gameSeries && <PreLoader />}
+                  {gameSeries &&
+                    <div className="flex-row flex-wrap flex-jc flex-g1">
+                      {gameSeries.results.map((game) => <GameCard game={game} key={game.id} />)}
+                    </div>
+                  }
+                </section>
               </div>
             </Container>
           </div>

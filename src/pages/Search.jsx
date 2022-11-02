@@ -6,14 +6,15 @@ import Container from "../components/Container";
 import GameCard from "../components/GameCard";
 import PreLoader from "../components/PreLoader";
 import LoadMore from "../components/LoadMore";
-import { useFetchGames } from "../hooks/useFetchGames";
+import { useFetchSearchGames } from "../hooks/useFetchSearchGames";
 
 const Search = () => {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
+  const [forceFetch, setForceFetch] = useState(false);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
-  const { data: searchedGames } = useFetchGames(page, query);
+  const { data: searchedGames } = useFetchSearchGames(page, query, forceFetch);
 
   const nextPage = () => {
     if (!searchedGames.next) {
@@ -24,16 +25,9 @@ const Search = () => {
   }
 
   useEffect(() => {
-    setPage(1);
+    if (page === 1) setForceFetch(prevForceFetch => !prevForceFetch);
+    else setPage(1);
   }, [query]);
-
-  /*
-  useEffect(() => {
-    setPreloader(true);
-    const searchURL = `${gamesURL}?${apiKey}&search=${query}`;
-    getSearchedGames(searchURL);
-  }, [query])
-  */
 
   return (
     <>

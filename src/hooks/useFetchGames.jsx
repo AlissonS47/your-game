@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 const apiKey = import.meta.env.VITE_API_KEY;
 const gamesURL = import.meta.env.VITE_API_GAMES;
 
-export const useFetchGames = (page) => {
+export const useFetchGames = (page, query, forceFetch) => {
   const [data, setData] = useState(null);
 
   const fetchData = async (url) => {
@@ -16,8 +16,10 @@ export const useFetchGames = (page) => {
   };
 
   useEffect(() => {
-    fetchData(`${gamesURL}?${apiKey}&page=${page}`);
-  }, [page]);
+    if (page === 1) setData(null);
+    if (!query) fetchData(`${gamesURL}?${apiKey}&page=${page}`);
+    else fetchData(`${gamesURL}?${apiKey}&search=${query}&page=${page}`);
+  }, [page, forceFetch]);
 
   return { data };
 };

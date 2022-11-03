@@ -6,7 +6,7 @@ import Container from "../components/Container";
 import GameCard from "../components/GameCard";
 import PreLoader from "../components/PreLoader";
 import LoadMore from "../components/LoadMore";
-import { useFetchSearchGames } from "../hooks/useFetchSearchGames";
+import { useFetchGames } from "../hooks/useFetchGames";
 
 const Search = () => {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ const Search = () => {
   const [forceFetch, setForceFetch] = useState(false);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
-  const { data: searchedGames } = useFetchSearchGames(page, query, forceFetch);
+  const { data: searchedGames } = useFetchGames(page, query, forceFetch);
 
   const nextPage = () => {
     if (!searchedGames.next) {

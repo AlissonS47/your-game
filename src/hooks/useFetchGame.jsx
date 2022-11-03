@@ -13,6 +13,7 @@ export const useFetchGame = (gamePK, endPoint) => {
   };
 
   useEffect(() => {
+    setData(null);
     if (!endPoint) fetchData(`${gamesURL}/${gamePK}?${apiKey}`);
     else fetchData(`${gamesURL}/${gamePK}/${endPoint}?${apiKey}`);
   }, [gamePK]);

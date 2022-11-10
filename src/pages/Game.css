@@ -15,22 +15,30 @@
 }
 
 .game-page__info {
-    flex-basis: 80%;
     margin-bottom: 1rem;
 }
 
-.game-page__info-about ul {
-    list-style-position: inside;
+.game-page__info *> {
+    flex-basis: 100%;
 }
 
 .game-page__info-detail {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: 0.5rem;
 }
 
 @media (min-width: 48em) {
     .game-page__info>* {
         flex-basis: 100%;
+    }
+
+    .game-page__info-about {
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+
+    .game-page__info-about::-webkit-scrollbar {
+        width: 0.85em;
     }
 }

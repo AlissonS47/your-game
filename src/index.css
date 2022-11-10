@@ -5,6 +5,26 @@
   font-family: 'Roboto', sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(34, 34, 34);
+  border-radius: 100vw;
+  margin-block: 0.3em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(59, 59, 59);
+  border: 0.15em solid rgb(34, 34, 34);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0a6698;
+}
+
 html,
 body {
   height: 100%;

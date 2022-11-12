@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 import Header from "../components/Header";
 import Container from "../components/Container";
 import GameCard from "../components/GameCard";
 import PreLoader from "../components/PreLoader";
 import LoadMore from "../components/LoadMore";
+import ScrollTopBtn from '../components/ScrollTopBtn'
 import { useFetchGames } from "../hooks/useFetchGames";
 
 const Home = () => {
+  const scrollReference = useRef();
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const { data: games } = useFetchGames(page);
@@ -22,7 +24,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header scrollReference={scrollReference} />
       <Container>
         {!games && <PreLoader />}
         {games &&
@@ -34,6 +36,7 @@ const Home = () => {
           </>
         }
       </Container>
+      <ScrollTopBtn scrollReference={scrollReference} />
     </>
   )
 }

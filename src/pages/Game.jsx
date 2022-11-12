@@ -1,5 +1,6 @@
 import "./Game.css"
 
+import { useRef } from "react"
 import { useParams } from "react-router-dom"
 
 import Header from "../components/Header"
@@ -8,21 +9,19 @@ import MetaCritic from "../components/MetaCritic"
 import PreLoader from "../components/PreLoader"
 import GameCard from "../components/GameCard"
 import Gallery from "../components/Gallery"
+import ScrollTopBtn from "../components/ScrollTopBtn"
 import { useFetchGame } from "../hooks/useFetchGame"
 
 const Game = () => {
+  const scrollReference = useRef();
   const { pk } = useParams();
   const { data: gameDetail } = useFetchGame(pk);
   const { data: gameScreenshots } = useFetchGame(pk, 'screenshots');
   const { data: gameSeries } = useFetchGame(pk, 'game-series');
 
-  const namesList = (list) => {
-    return list.join(',');
-  };
-
   return (
     <>
-      <Header bgImage={gameDetail && gameDetail.background_image} />
+      <Header bgImage={gameDetail && gameDetail.background_image} scrollReference={scrollReference} />
       {!gameDetail && <PreLoader />}
       {gameDetail &&
         <div id="game-page">
@@ -122,6 +121,7 @@ const Game = () => {
           </Container>
         </div >
       }
+      <ScrollTopBtn scrollReference={scrollReference} />
     </>
   )
 }

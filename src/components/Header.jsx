@@ -8,7 +8,7 @@ import Container from "./Container"
 import Logo from "../img/logo.png"
 
 
-const Header = ({ bgImage }) => {
+const Header = ({ bgImage, scrollReference }) => {
   const [search, setSearch] = useState();
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const Header = ({ bgImage }) => {
   return (
     <header className={bgImage && 'bg-image'} style={bgImage && { backgroundImage: `url(${bgImage})` }}>
       <Container>
-        <nav className='flex-row flex-jsb flex-ac'>
+        <nav className='flex-row flex-jsb flex-ac' ref={scrollReference}>
           <Link to="/">
             <img className='logo' src={Logo} alt="Logo" />
           </Link>

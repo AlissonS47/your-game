@@ -1,0 +1,30 @@
+#scroll-top-btn {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  background: none;
+  background-color: #0a6698;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 0;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: 0.5s;
+  z-index: 999;
+}
+
+#scroll-top-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#scroll-top-btn:hover {
+  background-color: #185374;
+}
+
+#scroll-top-btn svg {
+  width: 2.5rem;
+  margin: 0.5rem;
+  stroke: #fff;
+}

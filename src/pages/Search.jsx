@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useSearchParams } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -6,9 +6,11 @@ import Container from "../components/Container";
 import GameCard from "../components/GameCard";
 import PreLoader from "../components/PreLoader";
 import LoadMore from "../components/LoadMore";
+import ScrollTopBtn from "../components/ScrollTopBtn";
 import { useFetchGames } from "../hooks/useFetchGames";
 
 const Search = () => {
+  const scrollReference = useRef();
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(false);
   const [forceFetch, setForceFetch] = useState(false);
@@ -31,7 +33,7 @@ const Search = () => {
 
   return (
     <>
-      <Header />
+      <Header scrollReference={scrollReference} />
       <Container>
         {!searchedGames && <PreLoader />}
         {searchedGames &&
@@ -43,6 +45,7 @@ const Search = () => {
           </>
         }
       </Container>
+      <ScrollTopBtn scrollReference={scrollReference} />
     </>
   )
 }

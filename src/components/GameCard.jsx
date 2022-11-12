@@ -17,6 +17,7 @@ import IconPlaystation from "../img/platforms/playstation.svg"
 import IconSega from "../img/platforms/sega.svg"
 import IconWeb from "../img/platforms/web.svg"
 import IconXbox from "../img/platforms/xbox.svg"
+import BrokenImage from '../img/broken.jpg'
 
 const GameCard = ({ game }) => {
   const platformIcon = (platform) => {
@@ -52,10 +53,19 @@ const GameCard = ({ game }) => {
     }
   }
 
+  const imageError = (event) => {
+    console.log('oi');
+    event.target.src = BrokenImage;
+    event.onerror = null;
+  }
+
   return (
     <Link to={`/games/${game.slug}`}>
       <div className="game-card">
-        <img className="game-card__image" src={game.background_image} alt="Game image" />
+        {game.background_image ?
+          <img className="game-card__image" src={game.background_image} alt="Game image" />
+          : <img src={BrokenImage} alt="missing image" />
+        }
         <div className="game-card__info">
           <div className="flex-row flex-jsb">
             <div className="game-card__platforms flex-row flex-ac">

@@ -53,12 +53,6 @@ const GameCard = ({ game }) => {
     }
   }
 
-  const imageError = (event) => {
-    console.log('oi');
-    event.target.src = BrokenImage;
-    event.onerror = null;
-  }
-
   return (
     <Link to={`/games/${game.slug}`}>
       <div className="game-card">

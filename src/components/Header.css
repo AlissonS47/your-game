@@ -15,6 +15,7 @@ header .logo {
 }
 
 header form {
+  position: relative;
   width: 100%;
   max-width: 30rem;
 }
@@ -52,4 +53,18 @@ header button:hover {
 header button svg {
   width: 1.5rem;
   fill: #fff;
+}
+
+.form-search {
+  position: absolute;
+  top: 2.8em;
+  width: 100%;
+  padding: 1em;
+  border-radius: 1em;
+  background-color: #201d1d;
+  z-index: 1000;
+}
+
+.form-search img {
+  width: 5rem;
 }

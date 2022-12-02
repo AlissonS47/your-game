@@ -55,7 +55,7 @@ const Header = ({ bgImage, scrollReference }) => {
   return (
     <header className={bgImage && 'bg-image'} style={bgImage && { backgroundImage: `url(${bgImage})` }}>
       <Container>
-        <nav className='flex-row flex-jsb flex-ac' ref={scrollReference}>
+        <nav className='flex-row flex-jsb flex-ac flex-g1' ref={scrollReference}>
           <Link to="/">
             <img className='logo' src={Logo} alt="Logo" />
           </Link>

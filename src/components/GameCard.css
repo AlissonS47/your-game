@@ -10,10 +10,6 @@
     transition: 0.2s;
 }
 
-.game-card:hover {
-    transform: scale(1.15);
-}
-
 a:link,
 a:visited {
     text-decoration: none;
@@ -40,4 +36,10 @@ a:visited {
 
 .game-card__platforms img {
     height: 1.25rem;
+}
+
+@media (min-width: 48em) {
+    .game-card:hover {
+        transform: scale(1.15);
+    }
 }

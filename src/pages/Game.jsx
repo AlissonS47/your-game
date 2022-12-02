@@ -98,25 +98,27 @@ const Game = () => {
                 </div>
               </section>
 
-              <section className="game-page__media">
-                {gameScreenshots &&
+              {gameScreenshots &&
+                gameScreenshots.results.length > 0 &&
+                <section className="game-page__media">
                   <>
                     <h2 className="text-center mb-2">Screenshots</h2>
                     <Gallery images={gameScreenshots.results} />
                   </>
-                }
-              </section>
+                </section>
+              }
 
-              <section id="game-page__game-series">
-                {gameSeries &&
+              {gameSeries &&
+                gameSeries.results.length > 0 &&
+                <section id="game-page__game-series">
                   <>
                     <h2 className="text-center mt-3 mb-2">Game Series</h2>
                     <div className="flex-row flex-wrap flex-jc flex-g1">
                       {gameSeries.results.map((game) => <GameCard game={game} key={game.id} />)}
                     </div>
                   </>
-                }
-              </section>
+                </section>
+              }
             </div>
           </Container>
         </div >

@@ -11,7 +11,6 @@ export const useFetchLiveSearch = (query, forceFetch) => {
     const res = await fetch(url);
     const resData = await res.json();
     setData(resData);
-    console.log(resData);
   };
 
   useEffect(() => {
